@@ -1,0 +1,32 @@
+/* Custom utilities that complement Tailwind */
+html { scroll-behavior: smooth; }
+
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.grad-text {
+  background: linear-gradient(90deg, #C084FC, #60A5FA, #34D399, #F59E0B, #F472B6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Optional: focus styles for accessibility */
+input:focus, textarea:focus, button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.35);
+  border-color: rgba(167, 139, 250, 0.5);
+}

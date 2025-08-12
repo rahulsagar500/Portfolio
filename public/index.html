@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rahul Sagar Pabba – Portfolio</title>
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Inter', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            base: { bg: '#0B1020', card: '#0F162B', accent: '#7C3AED', soft: '#A78BFA' }
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(167,139,250,0.25), 0 10px 30px rgba(124,58,237,0.25)'
+          },
+          keyframes: {
+            float: { '0%,100%': { transform:'translateY(0)' }, '50%': { transform:'translateY(-8px)' } },
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -20px) scale(1.05)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.98)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' }
+            }
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+            blob: 'blob 12s ease-in-out infinite'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* helpers */
+    html { scroll-behavior: smooth; }
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.06); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+    .grad-text { background: linear-gradient(90deg, #C084FC, #60A5FA, #34D399, #F59E0B, #F472B6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    /* ---- Boy coder animation ---- */
+    @keyframes armTypeLeft { 0%,100%{transform:rotate(-8deg) translateY(0)} 50%{transform:rotate(-15deg) translateY(3px)} }
+    @keyframes armTypeRight{ 0%,100%{transform:rotate(8deg) translateY(0)} 50%{transform:rotate(15deg) translateY(3px)} }
+    @keyframes headNod{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(1.5px)} }
+    @keyframes eyeBlink{ 0%,6%,100%{transform:scaleY(1)} 3%{transform:scaleY(0.05)} }
+    @keyframes screenGlow{ 0%,100%{opacity:.35;filter:blur(16px)} 50%{opacity:.7;filter:blur(24px)} }
+    @keyframes chipUpA{ 0%{transform:translateY(0) translateX(0);opacity:0} 10%{opacity:.7} 100%{transform:translateY(-80px) translateX(10px);opacity:0} }
+    @keyframes chipUpB{ 0%{transform:translateY(0) translateX(0);opacity:0} 10%{opacity:.7} 100%{transform:translateY(-70px) translateX(-8px);opacity:0} }
+    .coder-chip{
+      animation-duration:5.8s;animation-iteration-count:infinite;animation-timing-function:ease-out;
+      background:linear-gradient(90deg,rgba(124,58,237,.28),rgba(99,102,241,.2));
+      border:1px solid rgba(167,139,250,.45);
+      box-shadow:0 8px 24px rgba(124,58,237,.3);
+    }
+  </style>
+</head>
+<body class="bg-base-bg text-white font-display">
+  <!-- BG blobs -->
+  <div class="fixed inset-0 -z-10 overflow-hidden select-none pointer-events-none">
+    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-purple-600/30 blur-3xl animate-blob"></div>
+    <div class="absolute top-40 -right-24 w-[28rem] h-[28rem] rounded-full bg-indigo-500/25 blur-3xl animate-blob" style="animation-delay: -4s"></div>
+    <div class="absolute -bottom-16 left-1/3 w-[30rem] h-[30rem] rounded-full bg-fuchsia-500/20 blur-3xl animate-blob" style="animation-delay: -8s"></div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-30">
+    <nav class="glass mx-3 mt-3 rounded-2xl px-4 py-3 shadow-glow">
+      <div class="max-w-6xl mx-auto flex items-center gap-3">
+        <a href="#home" class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-base-accent to-base-soft grid place-content-center shadow-glow">
+            <span class="text-lg font-extrabold">R</span>
+          </div>
+          <span class="hidden sm:block font-semibold">Rahul Sagar Pabba</span>
+        </a>
+        <div class="ml-auto hidden md:flex items-center gap-6 text-sm">
+          <a href="#home" class="hover:text-base-soft">Introduction</a>
+          <a href="#projects" class="hover:text-base-soft">Projects</a>
+          <a href="#skills" class="hover:text-base-soft">Skills</a>
+          <a href="#experience" class="hover:text-base-soft">Experience</a>
+          <a href="#education" class="hover:text-base-soft">Education</a>
+          <a href="#contact" class="hover:text-base-soft">Contact</a>
+          <a href="/Rahul_softwareDev.pdf" class="inline-flex items-center gap-2 rounded-xl border border-base-soft/30 px-3 py-2 hover:shadow-glow transition" download>
+            <span>Download Resume</span>
+          </a>
+        </div>
+        <button id="menuBtn" class="md:hidden ml-auto rounded-xl border border-white/10 px-3 py-2">Menu</button>
+      </div>
+      <div id="mobileMenu" class="md:hidden hidden mt-3 grid gap-2 text-sm">
+        <a class="glass rounded-xl px-4 py-3" href="#home">Introduction</a>
+        <a class="glass rounded-xl px-4 py-3" href="#projects">Projects</a>
+        <a class="glass rounded-xl px-4 py-3" href="#skills">Skills</a>
+        <a class="glass rounded-xl px-4 py-3" href="#experience">Experience</a>
+        <a class="glass rounded-xl px-4 py-3" href="#education">Education</a>
+        <a class="glass rounded-xl px-4 py-3" href="#contact">Contact</a>
+        <a class="glass rounded-xl px-4 py-3" href="/Rahul_softwareDev.pdf" download>Download Resume</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero / Intro -->
+  <section id="home" class="max-w-6xl mx-auto px-6 pt-16 pb-20">
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div class="reveal">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 mb-4 text-xs uppercase tracking-wider glass">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Open to roles: Full-Stack, SWE, Research
+        </div>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black leading-tight">
+          Hi, I’m <span class="grad-text">Rahul</span> —
+          <span class="block mt-1">Full-Stack Developer & Entrepreneur</span>
+        </h1>
+        <p class="mt-5 text-white/80 max-w-prose">
+          Dynamic software developer with experience at AnalystAI and Ventures.
+          Passionate about building elegant full-stack products, experimenting with LLMs (RAG + red-teaming), and shipping under real-world constraints.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="#projects" class="rounded-xl bg-base-accent px-5 py-3 font-semibold hover:shadow-glow transition">Explore Projects</a>
+          <a href="#contact" class="rounded-xl border border-white/10 px-5 py-3 font-semibold hover:border-base-soft/50">Contact Me</a>
+        </div>
+        <div class="mt-8 grid grid-cols-3 sm:grid-cols-6 gap-3 text-xs text-white/60">
+          <div class="glass rounded-xl p-3 text-center">JavaScript</div>
+          <div class="glass rounded-xl p-3 text-center">TypeScript</div>
+          <div class="glass rounded-xl p-3 text-center">React</div>
+          <div class="glass rounded-xl p-3 text-center">Supabase</div>
+          <div class="glass rounded-xl p-3 text-center">LlamaIndex</div>
+          <div class="glass rounded-xl p-3 text-center">Gemini API</div>
+        </div>
+      </div>
+
+      <!-- Right: Hoodie boy coder animation -->
+      <div class="relative reveal">
+        <div class="absolute -inset-6 bg-gradient-to-tr from-base-accent/40 to-base-soft/30 rounded-3xl blur-2xl -z-10"></div>
+        <div class="glass rounded-3xl p-6 border-white/10 shadow-2xl">
+          <div class="relative aspect-[4/5] rounded-2xl bg-[linear-gradient(135deg,#0f172a_0%,transparent_100%)] overflow-hidden">
+
+            <!-- floating code chips -->
+            <div class="absolute left-4 top-6 px-3 py-1 rounded-xl text-xs text-white/80 coder-chip" style="animation: chipUpA 5.8s infinite;">npm run dev</div>
+            <div class="absolute right-6 top-14 px-3 py-1 rounded-xl text-xs text-white/80 coder-chip" style="animation: chipUpB 5.8s infinite .9s;">git commit -m "feat"</div>
+            <div class="absolute left-10 top-28 px-3 py-1 rounded-xl text-xs text-white/80 coder-chip" style="animation: chipUpA 5.8s infinite 1.8s;">const app = express()</div>
+
+            <!-- SVG scene -->
+            <svg viewBox="0 0 540 620" class="absolute inset-0 w-full h-full" aria-hidden="true">
+              <defs>
+                <radialGradient id="g1" cx="50%" cy="40%" r="60%">
+                  <stop offset="0%" stop-color="#7C3AED" stop-opacity="0.55"/>
+                  <stop offset="100%" stop-color="#0F162B" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity=".35"/>
+                </filter>
+              </defs>
+
+              <rect x="-50" y="-40" width="640" height="720" fill="url(#g1)" opacity=".25"/>
+
+              <!-- Desk -->
+              <rect x="60" y="430" rx="20" ry="20" width="420" height="20" fill="#0b1225" stroke="#6b6b87" stroke-opacity=".15"/>
+
+              <!-- Monitor -->
+              <g transform="translate(138,168)">
+                <!-- glow -->
+                <rect x="28" y="32" width="214" height="144" rx="16" fill="#6d28d9" opacity=".45" style="animation: screenGlow 3.4s ease-in-out infinite;"></rect>
+                <rect x="20" y="24" width="230" height="160" rx="18" fill="#0a1224" stroke="#a78bfa" stroke-opacity=".35" filter="url(#shadow)"/>
+                <!-- code lines (animated widths) -->
+                <g transform="translate(40,48)" fill="#d7ccff">
+                  <rect id="l1" width="160" height="6" rx="3" opacity=".9"/>
+                  <rect id="l2" y="18" width="120" height="6" rx="3" opacity=".7"/>
+                  <rect id="l3" y="36" width="180" height="6" rx="3" opacity=".85"/>
+                  <rect id="l4" y="54" width="95" height="6" rx="3" opacity=".6"/>
+                  <rect id="l5" y="72" width="150" height="6" rx="3" opacity=".75"/>
+                  <rect id="l6" y="90" width="60" height="6" rx="3" opacity=".55"/>
+
+                  <!-- SVG <animate> for typing effect -->
+                  <animate xlink:href="#l1" attributeName="width" values="160;110;160" dur="2.2s" repeatCount="indefinite"/>
+                  <animate xlink:href="#l2" attributeName="width" values="120;150;120" dur="2.0s" begin=".2s" repeatCount="indefinite"/>
+                  <animate xlink:href="#l3" attributeName="width" values="180;130;180" dur="2.4s" begin=".3s" repeatCount="indefinite"/>
+                  <animate xlink:href="#l4" attributeName="width" values="95;160;95"  dur="1.8s" begin=".5s" repeatCount="indefinite"/>
+                  <animate xlink:href="#l5" attributeName="width" values="150;100;150" dur="2.1s" begin=".6s" repeatCount="indefinite"/>
+                  <animate xlink:href="#l6" attributeName="width" values="60;120;60"   dur="1.9s" begin=".7s" repeatCount="indefinite"/>
+                </g>
+                <!-- stand -->
+                <rect x="118" y="190" width="26" height="36" rx="6" fill="#141a30"/>
+                <rect x="86" y="224" width="90" height="12" rx="6" fill="#141a30"/>
+              </g>
+
+              <!-- Laptop -->
+              <g transform="translate(300,350)">
+                <rect x="-60" y="32" width="160" height="12" rx="6" fill="#141a30"/>
+                <rect x="-80" y="-4" width="200" height="40" rx="10" fill="#0a1224" stroke="#a78bfa" stroke-opacity=".35"/>
+                <rect x="-68" y="4" width="176" height="24" rx="6" fill="#0c1735"/>
+                <rect x="-60" y="10" width="84" height="10" rx="5" fill="#7c3aed" opacity=".85"/>
+              </g>
+
+              <!-- BOY character (hoodie) -->
+              <g transform="translate(250,278)">
+                <!-- hoodie hood -->
+                <path d="M-56,56 a56,56 0 0 1 112,0 v30 a56,44 0 0 1 -112,0z" fill="#141a30"/>
+                <!-- hoodie torso -->
+                <path d="M-56,138 a56,52 0 0 0 112,0 v-22 a56,40 0 0 0 -112,0z" fill="#1b2242"/>
+                <!-- hoodie strings -->
+                <rect x="-10" y="78" width="4" height="18" rx="2" fill="#9aa4c5"/>
+                <rect x="6"  y="78" width="4" height="18" rx="2" fill="#9aa4c5"/>
+
+                <!-- head + face -->
+                <g style="animation: headNod 4.2s ease-in-out infinite;">
+                  <!-- face -->
+                  <circle cx="0" cy="20" r="26" fill="#2a3358" stroke="#a78bfa" stroke-opacity=".18"/>
+                  <!-- hair (dark) -->
+                  <path d="M-26,16 q26-26 52,0 v-4 a26,20 0 0 0 -52,0 z" fill="#0f152b"/>
+                  <path d="M-12,14 q12-9 24,0 q-10,9 -24,0z" fill="#0f152b"/>
+                  <!-- eyes -->
+                  <g transform="translate(-8,22)" style="transform-origin: 8px 22px; animation: eyeBlink 5.2s ease-in-out infinite;">
+                    <ellipse cx="0" cy="0" rx="4" ry="4" fill="#e5e7eb"/>
+                  </g>
+                  <g transform="translate(8,22)" style="transform-origin: -8px 22px; animation: eyeBlink 5.2s ease-in-out infinite;">
+                    <ellipse cx="0" cy="0" rx="4" ry="4" fill="#e5e7eb"/>
+                  </g>
+                  <!-- smile -->
+                  <path d="M-7,30 q7,7 14,0" stroke="#cbd5e1" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- arms with hands -->
+                <!-- left arm -->
+                <g transform="translate(-48,104)" style="transform-origin: 48px -104px; animation: armTypeLeft 1.15s ease-in-out infinite;">
+                  <rect x="-8" y="-8" width="66" height="20" rx="10" fill="#1b2242"/>
+                  <circle cx="58" cy="2" r="8" fill="#2a3358"/> <!-- hand -->
+                </g>
+                <!-- right arm -->
+                <g transform="translate(48,104)" style="transform-origin: -48px -104px; animation: armTypeRight 1.15s ease-in-out infinite .12s;">
+                  <rect x="-58" y="-8" width="66" height="20" rx="10" fill="#1b2242"/>
+                  <circle cx="-58" cy="2" r="8" fill="#2a3358"/> <!-- hand -->
+                </g>
+              </g>
+
+              <!-- chair -->
+              <g transform="translate(250,418)">
+                <rect x="-46" y="0" width="92" height="70" rx="16" fill="#0f1934" />
+                <rect x="-70" y="64" width="140" height="12" rx="6" fill="#0c1730"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- /Right animated card -->
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="reveal flex items-end justify-between gap-6">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-extrabold">Featured Projects</h2>
+        <p class="text-white/70 mt-2">Selected work spanning LLMs, full-stack apps, and robotics challenges.</p>
+      </div>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="glass rounded-2xl p-6 border-white/10 hover:shadow-glow transition reveal">
+        <div class="h-36 rounded-xl bg-gradient-to-tr from-fuchsia-600/30 to-indigo-600/30 grid place-content-center">
+          <span class="text-5xl">🧪</span>
+        </div>
+        <h3 class="mt-4 text-xl font-bold">RAG Chatbots Red-Teaming</h3>
+        <p class="text-white/70 mt-2">UQ research on probing vulnerabilities in retrieval-augmented chatbots. Built evaluation harnesses and adversarial prompt suites; documented failure modes and mitigations.</p>
+      </article>
+
+      <article class="glass rounded-2xl p-6 border-white/10 hover:shadow-glow transition reveal">
+        <div class="h-36 rounded-xl bg-gradient-to-tr from-emerald-600/30 to-cyan-600/30 grid place-content-center">
+          <span class="text-5xl">🧩</span>
+        </div>
+        <h3 class="mt-4 text-xl font-bold">AnalystAI – Knowledge App</h3>
+        <p class="text-white/70 mt-2">React + Supabase with Gemini API for semantic Q&A over docs. Implemented ingest pipeline and chat with citations.</p>
+      </article>
+
+      <article class="glass rounded-2xl p-6 border-white/10 hover:shadow-glow transition reveal">
+        <div class="h-36 rounded-xl bg-gradient-to-tr from-amber-600/30 to-rose-600/30 grid place-content-center">
+          <span class="text-5xl">🛰️</span>
+        </div>
+        <h3 class="mt-4 text-xl font-bold">Beach-Cleaning Drones</h3>
+        <p class="text-white/70 mt-2">Ventures challenge: autonomous drones/robots for shoreline cleanup. Reached Top-6 of 40 teams; developed system design for fully automated ops.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="reveal">
+      <h2 class="text-3xl md:text-4xl font-extrabold">Skills</h2>
+      <p class="text-white/70 mt-2">A blend of engineering, product, and research capabilities.</p>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-2xl p-6 reveal">
+        <h3 class="font-semibold text-lg">Full-Stack</h3>
+        <ul class="mt-3 space-y-2 text-white/70">
+          <li>React, Next.js, TypeScript, Tailwind</li>
+          <li>Node.js, Supabase (Postgres, Auth, Storage)</li>
+          <li>API design, REST, Webhooks</li>
+        </ul>
+      </div>
+      <div class="glass rounded-2xl p-6 reveal">
+        <h3 class="font-semibold text-lg">AI / LLM</h3>
+        <ul class="mt-3 space-y-2 text-white/70">
+          <li>Gemini API, LlamaIndex (RAG)</li>
+          <li>Prompt engineering & red-teaming</li>
+          <li>Evaluation harnesses, safety scoring</li>
+        </ul>
+      </div>
+      <div class="glass rounded-2xl p-6 reveal">
+        <h3 class="font-semibold text-lg">Extras</h3>
+        <ul class="mt-3 space-y-2 text-white/70">
+          <li>UI Design (Figma, Canva)</li>
+          <li>Game Dev (Java, libGDX)</li>
+          <li>Agile, JIRA, GitHub, Postman</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="reveal">
+      <h2 class="text-3xl md:text-4xl font-extrabold">Experience</h2>
+      <p class="text-white/70 mt-2">What I’ve shipped and learned along the way.</p>
+    </div>
+
+    <div class="mt-8 grid gap-6">
+      <div class="glass rounded-2xl p-6 reveal">
+        <div class="flex flex-wrap items-center gap-2 text-sm text-white/60">
+          <span class="px-2 py-1 rounded-lg bg-white/5">06/2024 – Current</span>
+          <span>University of Queensland</span>
+        </div>
+        <h3 class="mt-2 text-xl font-bold">Research & Development Intern</h3>
+        <p class="mt-2 text-white/70">Conducted research on the negative side of LLMs via red-teaming for RAG chatbots.</p>
+      </div>
+
+      <div class="glass rounded-2xl p-6 reveal">
+        <div class="flex flex-wrap items-center gap-2 text-sm text-white/60">
+          <span class="px-2 py-1 rounded-lg bg-white/5">10/2024 – 01/2025</span>
+          <span>AnalystAI, Hanoi</span>
+        </div>
+        <h3 class="mt-2 text-xl font-bold">Software Developer Intern</h3>
+        <ul class="mt-2 space-y-2 text-white/70 list-disc list-inside">
+          <li>React + Supabase + Gemini API</li>
+          <li>Vector RAG with LlamaIndex</li>
+        </ul>
+      </div>
+
+      <div class="glass rounded-2xl p-6 reveal">
+        <div class="flex flex-wrap items-center gap-2 text-sm text-white/60">
+          <span class="px-2 py-1 rounded-lg bg-white/5">06/2024 – 11/2025</span>
+          <span>Ventures, Saint Lucia</span>
+        </div>
+        <h3 class="mt-2 text-xl font-bold">Startup Founder</h3>
+        <p class="mt-2 text-white/70">Top-6 of 40 teams; autonomous beach-cleaning system.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="reveal">
+      <h2 class="text-3xl md:text-4xl font-extrabold">Education & Certifications</h2>
+    </div>
+    <div class="mt-8 grid md:grid-cols-2 gap-6">
+      <div class="glass rounded-2xl p-6 reveal">
+        <h3 class="text-lg font-semibold">BSc, Software Engineering</h3>
+        <p class="text-white/70 mt-1">The University of Queensland — Expected Dec 2025</p>
+      </div>
+      <div class="glass rounded-2xl p-6 reveal">
+        <h3 class="text-lg font-semibold">Certifications</h3>
+        <ul class="text-white/70 mt-2 space-y-2">
+          <li>AWS Solutions Architect — Associate</li>
+          <li>Google IT Support Professional</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="reveal">
+      <h2 class="text-3xl md:text-4xl font-extrabold">Get in touch</h2>
+      <p class="text-white/70 mt-2">I’d love to hear about roles, collaborations, or just chat tech.</p>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+      <div class="glass rounded-2xl p-6 reveal">
+        <h3 class="font-semibold">Email</h3>
+        <a class="block mt-1 text-white/80 hover:text-base-soft" href="mailto:rahulsagarpabba5@gmail.com">rahulsagarpabba5@gmail.com</a>
+      </div>
+      <div class="glass rounded-2xl p-6 reveal">
+        <h3 class="font-semibold">Phone</h3>
+        <a class="block mt-1 text-white/80" href="tel:+61430007554">+61 430 007 554</a>
+      </div>
+      <div class="glass rounded-2xl p-6 reveal">
+        <h3 class="font-semibold">Location</h3>
+        <p class="mt-1 text-white/80">Woolloongabba, QLD 4102</p>
+      </div>
+    </div>
+
+    <form id="contactForm" class="mt-8 glass rounded-2xl p-6 grid gap-4 max-w-3xl reveal">
+      <div class="grid md:grid-cols-2 gap-4">
+        <input name="name" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Your name" required />
+        <input type="email" name="email" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Email address" required />
+      </div>
+      <input name="subject" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Subject" />
+      <textarea name="message" rows="5" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3" placeholder="Your message..." required></textarea>
+      <button class="justify-self-start rounded-xl bg-base-accent px-6 py-3 font-semibold hover:shadow-glow transition">Send message</button>
+      <p id="formStatus" class="text-sm text-white/70"></p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-10 py-10 text-center text-white/60">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="glass rounded-2xl px-6 py-4 inline-flex items-center gap-3">
+        <span class="text-xs">© <span id="year"></span> Rahul Sagar Pabba</span>
+        <span class="text-white/30">·</span>
+        <a class="hover:text-base-soft" href="#home">Back to top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App JS -->
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+    }
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("show"); io.unobserve(e.target);} });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    // Year
+    const y=document.getElementById("year"); if (y) y.textContent = new Date().getFullYear();
+
+    // Contact form -> backend
+    const form = document.getElementById("contactForm");
+    const statusEl = document.getElementById("formStatus");
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        statusEl.textContent = "Sending…";
+        const data = Object.fromEntries(new FormData(form).entries());
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          const json = await res.json();
+          if (json.ok) { statusEl.textContent = "Thanks! Your message has been sent."; form.reset(); }
+          else { statusEl.textContent = "Failed to send. Please try again."; }
+        } catch {
+          statusEl.textContent = "Network error. Please try again.";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
